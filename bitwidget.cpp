@@ -1,5 +1,6 @@
 #include "bitwidget.h"
 
+
 BitWidget::BitWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -16,12 +17,21 @@ void BitWidget::obrabotkaBin(const QString &filename,QVector<bool> &bitVector)
         qDebug() << "Причина" << filebin.errorString();
     }
 
-        QByteArray dataBin = filebin.readAll();
+        QByteArray byteArray = filebin.readAll();
 
 
     filebin.close();
 
-        qDebug() << "Прочитано байт:" << dataBin.size();
+        qDebug() << "Прочитано байт:" << byteArray.size();
+
+        for (char byte : byteArray) {
+            for(int i = 7; i >= 0 ; --i) {
+                bool bit = (byte >> i) & 1;
+                bitVector.append(bit);
+            }
+        }
+
+
 
 
 };
