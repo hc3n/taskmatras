@@ -19,6 +19,7 @@ private slots:
 private:
     QSpinBox *spinBox;
     QLabel *outputLabel;
+
 };
 
 #endif // MAINWINDOW_H
