@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "bitwidget.h"
+
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -23,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     spinBox = new QSpinBox();
     spinBox->setRange(1, 100000);
+    spinBox->setValue(10000);
     inputLayout->addWidget(spinBox);
 
     mainLayout->addLayout(inputLayout);
@@ -33,9 +36,24 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Подключение сигнала
     connect(spinBox, &QSpinBox::valueChanged, this, &MainWindow::spinValueChanged);
+
+
+    // Вывод отрисовщика сигнала. (картинки)
+    imageLabel = new QLabel();
+    imageLabel->setAlignment(Qt::AlignCenter);
+    mainLayout->addWidget(imageLabel);
+
+    bitWidget = new BitWidget(this);
+    bitWidget->obrabotkaBin("/Users/timofey/QtLib/STCproject/test_short_1504.bin",bitVector);
+
 }
 
 void MainWindow::spinValueChanged() {
     int period = spinBox->value();
     outputLabel->setText("Текущий период: " + QString::number(period));
+
+    QImage img = bitWidget ->risovalka(bitVector,period);
+    imageLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    imageLabel->setPixmap(QPixmap::fromImage(img).scaled(imageLabel->size()));
+
 }

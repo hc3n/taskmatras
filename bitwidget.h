@@ -16,5 +16,7 @@ public:
 
     QImage risovalka(const QVector<bool> &bitVector,int period);
 
+private:
+    QImage image;
 
 };

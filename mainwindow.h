@@ -5,6 +5,7 @@
 
 class QSpinBox;
 class QLabel;
+class BitWidget; // forward declaration
 
 class MainWindow : public QMainWindow
 {
@@ -19,6 +20,10 @@ private slots:
 private:
     QSpinBox *spinBox;
     QLabel *outputLabel;
+    QLabel *imageLabel;
+
+    BitWidget *bitWidget;
+    QVector<bool> bitVector;
 
 };
 
